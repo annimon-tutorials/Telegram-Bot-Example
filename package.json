@@ -1,0 +1,19 @@
+{
+  "name": "testbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "bot",
+    "telegram"
+  ],
+  "author": "aNNiMON",
+  "license": "MIT",
+  "dependencies": {
+    "node-telegram-bot-api": "^0.28.0",
+    "sqlite-sync": "^0.3.6"
+  }
+}
