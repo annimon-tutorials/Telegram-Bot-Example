@@ -49,11 +49,11 @@ bot.onText(/\/add ([^;'\"]+)/, (msg, match) => {
   const key = match[1];
   var text = '';
   if (isMessageExists(key)) {
-    text = 'Извините, сообщение с таким ключом уже существует.';
+    text = 'Sorry, message with this key already exists.';
   } else {
     addMode[chatId] = {key: key, from: msg.from.id};
-    text = 'Теперь пришлите сообщение, которое нужно сохранить, '
-      + 'либо отправьте /cancel для отмены.';
+    text = 'Now send me a message that needs to be saved. '
+      + 'Or /cancel to abort operation.';
   }
   bot.sendMessage(chatId, text);
 });
@@ -77,10 +77,10 @@ bot.on('message', (msg) => {
     message_id: msg.message_id
   }, function(res) {
     if (res.error) {
-      bot.sendMessage(chatId, 'Добавить сообщение не вышло. Попробуйте позже.');
+      bot.sendMessage(chatId, 'Unable to bookmark message. Please, try again later.');
       throw res.error;
     }
-    bot.sendMessage(chatId, 'Сообщение сохранено успешно!');
+    bot.sendMessage(chatId, 'Message successfully saved!');
   });
 
   delete addMode[chatId];
@@ -94,7 +94,7 @@ bot.onText(/\/list/, (msg) => {
     "SELECT `key` FROM messages WHERE `from_id` = ?",
      [fromId]);
   if (data.length == 0) {
-    bot.sendMessage(chatId, 'Вы ничего не добавили.');
+    bot.sendMessage(chatId, 'You have not added anything.');
     return;
   }
   var lines = [];
@@ -113,7 +113,7 @@ bot.onText(/\/remove ([^;'\"]+)/, (msg, match) => {
 
   sqlite.delete('messages', {'key': key}, function(res) {
     if (!res.error) {
-      bot.sendMessage(msg.chat.id, 'Сообщение успешно удалено!');
+      bot.sendMessage(msg.chat.id, 'Message successfully deleted!');
     }
   });
 });
